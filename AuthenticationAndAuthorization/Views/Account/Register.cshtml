@@ -1,43 +1,46 @@
 ﻿@model RegisterDTO
+
+
 <div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
 
         <div class="card">
-
             <div class="card-header">
-                <h4 class="card-title"></h4>
-
+                <h4 class="card-title">Register</h4>
             </div>
+
             <div class="card-body">
                 <form action="Register">
+
                     <div class="form-group">
                         <label asp-for="UserName" class="form-control"></label>
-                        <input asp-for="UserName" class="form-control" placeholder="User Name" />
-                        <span asp-validation-for="UserName" class="text-danger"></span>
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName"  class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Email" class="form-control"></label>
-                        <input asp-for="Email" class="form-control" placeholder="Email" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email"  class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Password" class="form-control"></label>
-                        <input asp-for="Password" class="form-control" placeholder="Password" />
-                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password"  class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                     <div class="form-group">
                         <label asp-for="TcNo" class="form-control"></label>
-                        <input asp-for="TcNo" class="form-control" placeholder="Tc Kimlik No" />
-                        <span asp-validation-for="TcNo" class="text-danger"></span>
+                        <input asp-for="TcNo" class="form-control" />
+                        <span asp-validation-for="TcNo"  class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                     <div class="form-group">
+                     
                         <input type="submit" class="btn btn-success float-right" value="Register" />
-                    </div>
+                     </div>
                 </form>
             </div>
             <div class="card-footer">
-                <a aasp-action="Login" class="btn btn-block btn-dark">Login</a>
+                <a asp-action="Login" class="btn btn-block btn-dark">Login</a>
             </div>
         </div>
 
