@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace AuthenticationAndAuthorization.Models.DTOs
 {
-    public class AssignedUsersDTO
+    public class AssignedRoleDTO
     {
         public IdentityRole Role { get; set; }
         public IList<AppUser> HasRole { get; set; }

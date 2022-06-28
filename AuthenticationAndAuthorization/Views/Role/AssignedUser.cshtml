@@ -1,0 +1,63 @@
+﻿@model AssignedRoleDTO
+
+<div class="row">
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Role Manager</h3>
+        </div>
+        <form>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h5>Add User To <span class="badge badge-success">@Model.Role.Name</span> Role </h5>
+                        <table class="table table-hover">
+                            @if (Model.HasNotRole.Count == 0)
+                            {
+                                <tr>
+                                    <td> All User are @Model.Role.Name</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                foreach (var item in Model.HasNotRole)
+                                {
+                                    <tr>
+                                        <td>@item.UserName</td>
+                                        <td>
+                                            <input type="checkbox" value="@item.Id" name="AddIds" />
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                    <div class="col-sm-6">
+                        <h5>Remove User To <span class="badge badge-success">@Model.Role.Name</span> Role </h5>
+                        <table class="table table-hover">
+                            @if (Model.HasRole.Count == 0)
+                            {
+                                <tr>
+                                    <td> All User are @Model.Role.Name</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                foreach (var item in Model.HasRole)
+                                {
+                                    <tr>
+                                        <td>@item.UserName</td>
+                                        <td>
+                                            <input type="checkbox" value="@item.Id" name="DeleteIds" />
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

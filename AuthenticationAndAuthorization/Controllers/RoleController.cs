@@ -1,4 +1,5 @@
-﻿using AuthenticationAndAuthorization.Models.Entities;
+﻿using AuthenticationAndAuthorization.Models.DTOs;
+using AuthenticationAndAuthorization.Models.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -65,6 +66,14 @@ namespace AuthenticationAndAuthorization.Controllers
                 }
 
             }
+            AssignedRoleDTO assignedRoleDTO = new AssignedRoleDTO
+            {
+                Role = identityRole,
+                HasRole = hasRole,
+                HasNotRole = hasNotRole,
+                RoleName = identityRole.Name
+            };
+            return View(assignedRoleDTO);
         }
     }
 }
