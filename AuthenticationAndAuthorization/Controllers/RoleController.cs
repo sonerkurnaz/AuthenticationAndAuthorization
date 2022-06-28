@@ -18,7 +18,7 @@ namespace AuthenticationAndAuthorization.Controllers
         }
         public IActionResult Index()
         {
-            return View(roleManager.Roles);
+            return View(roleManager.Roles.ToList());
         }
         public IActionResult Create()
         {
@@ -43,6 +43,28 @@ namespace AuthenticationAndAuthorization.Controllers
                 }
             }
             return View();
+        }
+        public async Task<IActionResult> AssignedUsers(string id)
+        {
+            IdentityRole identityRole = await roleManager.FindByIdAsync(id);
+            List<AppUser> hasRole = new List<AppUser>();
+            List<AppUser> hasNotRole = new List<AppUser>();
+
+            foreach (AppUser user in userManager.Users)
+            {
+                //var list = await userManager.IsInRoleAsync(user, identityRole.Name) ? hasRole : hasNotRole;
+                //list.Add(user);
+                bool sonuc = await userManager.IsInRoleAsync(user, identityRole.Name);
+                if (sonuc)
+                {
+                    hasRole.Add(user);
+                }
+                else
+                {
+                    hasNotRole.Add(user);
+                }
+
+            }
         }
     }
 }
