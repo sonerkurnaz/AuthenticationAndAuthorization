@@ -43,9 +43,9 @@ namespace AuthenticationAndAuthorization.Controllers
                     }
                 }
             }
-            return View();
+            return View(name);
         }
-        public async Task<IActionResult> AssignedUsers(string id)
+        public async Task<IActionResult> AssignedUser(string id)
         {
             IdentityRole identityRole = await roleManager.FindByIdAsync(id);
             List<AppUser> hasRole = new List<AppUser>();
@@ -74,6 +74,35 @@ namespace AuthenticationAndAuthorization.Controllers
                 RoleName = identityRole.Name
             };
             return View(assignedRoleDTO);
+        }
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> AssignedUser(AssignedRoleDTO roleDTO)
+        {
+            IdentityResult result;
+            string[] addIds = roleDTO.AddIds;
+            string[] delIds = roleDTO.DeleteIds;
+
+
+            if (addIds != null)
+            {
+                foreach (var userId in addIds)
+                {
+                    AppUser user = await userManager.FindByIdAsync(userId);
+                    result = await userManager.AddToRoleAsync(user, roleDTO.RoleName);
+                }
+
+
+            }
+            if (delIds != null)
+            {
+                foreach (var userId in delIds)
+                {
+                    AppUser user = await userManager.FindByIdAsync(userId);
+                    result = await userManager.RemoveFromRoleAsync(user, roleDTO.RoleName);
+                }
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }
