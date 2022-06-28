@@ -76,12 +76,10 @@ namespace AuthenticationAndAuthorization.Controllers
 
                     if (signInResult.Succeeded)
                     {
-                        return RedirectToAction(loginDTO.ReturnUrl);
+                        return RedirectToAction("Index", "Home");
                     }
-                    else
-                    {
-                        ModelState.AddModelError("", "Kullanici Adi yada Şifre Yanliş");
-                    }
+
+                    ModelState.AddModelError("", "Kullanici Adi yada Şifre Yanliş");
 
                 }
 
@@ -93,6 +91,35 @@ namespace AuthenticationAndAuthorization.Controllers
         {
             await signInManager.SignOutAsync();
             return RedirectToAction("Login");
+        }
+        [HttpGet]
+        public async Task<IActionResult> Edit()
+        {
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+
+            UserUpdateDTO userUpdateDTO = new UserUpdateDTO(user);
+
+            return View(userUpdateDTO);
+        }
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(UserUpdateDTO userUpdateDTO)
+        {
+            if (ModelState.IsValid)
+            {
+                AppUser user = await userManager.FindByNameAsync(User.Identity.Name);
+                user.UserName = userUpdateDTO.UserName;
+                if (userUpdateDTO.Password != null)
+                {
+                    user.PasswordHash = passwordHasher.HashPassword(user, userUpdateDTO.Password);
+                }
+                var result = await userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            return View(userUpdateDTO);
         }
     }
 }
